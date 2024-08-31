@@ -39,7 +39,7 @@ class WeatherService {
   private buildGeocodeQuery(): string {}
   // TODO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {}
-  // TODO: Create fetchAndDestructureLocationData method
+.env  // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {}
   // TODO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates) {}
