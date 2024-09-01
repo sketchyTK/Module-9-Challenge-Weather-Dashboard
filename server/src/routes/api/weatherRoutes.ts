@@ -5,10 +5,10 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 // TODO: POST Request with city name to retrieve weather data
-router.post('/', (req, res) => {
+router.post('/', async (_req, res) => {
   // TODO: GET weather data from city name
-  try {
-   await WeatherService.getWeatherForCity(this.name, this.id );
+  try  {
+   await WeatherService.getWeatherForCity(name, id );
    res.json('Weather successfully retrieved');
    // TODO: save city to search history
     const savedCities = await HistoryService.addCity();
