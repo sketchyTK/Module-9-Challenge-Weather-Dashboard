@@ -8,10 +8,11 @@ interface Coordinates {
 }
 // TODO: Define a class for the Weather object
 interface Weather {
-  temperature: string;
-  wind: string;
+  tempF: string;
+  windSpeed: string;
   humidity: string;
   icon: string;
+  iconDescription: string;
 }
 // TODO: Complete the WeatherService class
 class WeatherService {
