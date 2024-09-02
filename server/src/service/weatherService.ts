@@ -34,24 +34,31 @@ class WeatherService {
   private async fetchLocationData(query: string) {
     const response = await fetch(query);
       const locationData = await response.json();
-      const mapLocationData = await this.destructureLocationData(locationData.data);
+      const mapLocationData =  this.destructureLocationData(locationData.data);
       return mapLocationData; 
     }
   // TODO: Create destructureLocationData method
   private destructureLocationData(locationData: Coordinates): Coordinates {
-    const locationArray: Coordinates[] = locationData.map((location) => {
-      const locationObject: Coordinates = {
-        lat: location.lat,
-        lon: location.lon,
-      };
-            return locationObject;
+    const locationArray: Coordinates[] = locationData.map(({ lat, lon }: Coordinates) => {
+
+        return { lat, lon };
     });
 
     return locationArray;
+    // const locationArray: Coordinates[] = locationData.map((location: any) => {
+    //   const locationObject: Coordinates = {
+    //     lat: location.lat,
+    //     lon: location.lon,
+    //   };
+    //         return locationObject;
+    // });
+
+    // return locationArray[0];
   }
   // TODO: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
-    const geocodeQuery =   `${this.baseURL}/data/2.5/forecast?lat=${this.destructureLocationData.lat}&lon=${this.destructureLocationData.lon}&appid=${this.apiKey}`;
+    let geocodeLat = this.fetchLocationData();
+    const geocodeQuery =   `${this.baseURL}/data/2.5/forecast?lat=${geocodeLat}&lon=${this.destructureLocationData.lon}&appid=${this.apiKey}`;
     return geocodeQuery;
   }
   // TODO: Create buildWeatherQuery method
