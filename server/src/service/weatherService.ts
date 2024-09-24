@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-
+import dayjs, { type Dayjs } from 'dayjs';
 // TODO: Define an interface for the Coordinates object
 interface Coordinates {
   name: string;
@@ -12,7 +12,7 @@ interface Coordinates {
 // TODO: Define a class for the Weather object
 class Weather {
   city: string;
-  date: string;
+  date: Dayjs | string;
   tempF: number;
   windSpeed: number;
   humidity: number;
@@ -20,7 +20,7 @@ class Weather {
   description: string; 
   constructor(
     city: string,
-  date: string,
+  date: Dayjs | string,
   tempF: number,
   windSpeed: number,
   humidity: number,
@@ -143,10 +143,10 @@ class WeatherService {
     }
   }
   private parseCurrentWeather(response: any) {
-
+const parsedDate = dayjs.unix(response.dt).format('M/D/YYYY');
     const currentWeather = new Weather(
       this.city,
-      response.main.date,
+      parsedDate,
       response.main.temp,
       response.wind.speed,
       response.main.humidity,
@@ -169,7 +169,7 @@ class WeatherService {
       weatherForecast.push(
         new Weather(
           this.city,
-          day.date.format('M/D/YYY'),
+          dayjs.unix(day.dt).format('M/D/YYYY'),
           day.main.temp,
           day.wind.speed,
           day.main.humidity,
